@@ -8,8 +8,6 @@ namespace OpenFoodFacts;
  */
 class Document
 {
-    use recursiveSortingTrait;
-
     /**
      * the whole data
      * @var array
@@ -46,16 +44,6 @@ class Document
     public function __isset(string $name):bool
     {
         return isset($this->data[$name]);
-    }
-
-    /**
-     * Returns a sorted representation of the complete Document Data
-     * @return array
-     */
-    public function getData(): array
-    {
-        $this->recursiveSortArray($this->data);
-        return $this->data;
     }
 
 }
