@@ -20,7 +20,7 @@ composer require openfoodfacts/openfoodfacts-php
 This is the most basic way of creating the API:
 ```php
 $api = new OpenFoodFacts\Api('food','fr');
-$prd = $api->getProduct('3057640385148');
+$product = $api->getProduct('3057640385148');
 ```
 In the example above you access the "food" database, limited to the French language/country scope. 
 The first parameter is either 
@@ -36,9 +36,23 @@ For more details on this topic: see the [API Documentation](https://en.wiki.open
 
 These are all the parameters you really need for basic usage.
 
+As return types for ```$api->getProduct``` you get an ```Document::class``` Object. 
+This may also be an Object of Type  ```FoodProduct::class```,```PetProduct::class```, ```BeautyProduct::class``` depending on which API you are creating.
+These objects inherit from the more generic ```Document::class```
 
-##### Optional Parameters
+In the example above, we use the 'food' API and there will get a ```FoodProduct::class```
+
+For getting a first overview the ```Document::class``` has a function to return an array representation(sorted) for a first start. 
+```php
+$product = $api->getProduct('3057640385148');
+$productDataAsArray = $product->getData();
+```
+
+
+#### Optional Parameters
 The other parameters are optional and for a more sophisticated use of the api (from a software development point of view):
+
+An example in code is found here: [cached_example.php](examples/01-basic_api_usage/cached_example.php)
 
 LoggerInterface: A logger which decieds where to log errors to (file, console , etc) 
 
@@ -51,6 +65,7 @@ see: [Guzzle HTTP Client](https://packagist.org/packages/guzzlehttp/guzzle)
 CacheInterface: To temporarily save the results of API request to improve the performance and to reduce the load on the API- Server 
 
 see: [PSR-16 Simple Cache](https://www.php-fig.org/psr/psr-16/)
+
 ## Development
 
 
